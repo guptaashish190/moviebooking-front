@@ -1,23 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import userLoginActions from '../../actions/userLoginActions';
+import userLoginActions from '../actions/userLoginActions';
 
-class Header extends React.Component {
+class NavigationBar extends React.Component {
   getUsernameText = () => {
     if (Object.keys(this.props.user).length === 0) {
       return <div style={{ display: 'none' }} />;
     }
-    return <div className="userHeader" ><span className="usernameText">{this.props.user.displayName}</span><img src={this.props.user.photoURL} alt="PP" /></div>;
+    return <div className="userHeader" ><span className="usernameText">{this.props.user.DISPLAYNAME}</span><img src={this.props.user.PHOTO} alt="PP" /></div>;
   }
 
   getMenuItems = () => (
-    <ul className="menu-items">
-      <li><Link to="/" >HOME</Link></li>
+    <ul>
+      <li><Link to="/home" >HOME</Link></li>
+      <li><Link to="/movies" >MOVIES</Link></li>
+      <li><Link to="/theatres" >THEATRES</Link></li>
 
       {Object.keys(this.props.user).length !== 0 ? <li><Link to="/login" onClick={() => this.props.logoutUser()}>LOGOUT</Link></li> : <li><Link to="/login" >LOGIN</Link></li> }
-
-      {Object.keys(this.props.user).length !== 0 ? <li><Link to="/timetable" >TIMETABLE</Link></li> : '' }
 
       <li><Link to="/about" >ABOUT</Link></li>
     </ul>
@@ -25,16 +25,15 @@ class Header extends React.Component {
 
   render() {
     return (
-      <div className="header">
-        {this.getMenuItems()}
+      <div className="navigation-bar">
+        <span>showTime</span>
         {this.getUsernameText()}
-        <div className="redefined-text">
-          <div>FFCS</div>&nbsp;<div>REDEFINED</div>
-        </div>
+        {this.getMenuItems()}
       </div>
     );
   }
 }
+
 
 function mapStateToProps(state) {
   return {
@@ -48,4 +47,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar);

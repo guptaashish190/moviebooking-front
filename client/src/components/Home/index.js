@@ -3,9 +3,12 @@ import React from 'react';
 class Home extends React.Component {
   render() {
     return (
-      <div> Works </div>
+      <div className="home">
+        Home
+      </div>
     );
   }
 }
+
 
 export default Home;

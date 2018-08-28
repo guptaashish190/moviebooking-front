@@ -27,6 +27,8 @@ class NewUser extends React.Component {
     username: '',
     password: '',
     passwordConfirmation: '',
+    age: '',
+    email: '',
     errors: [],
   }
   componentWillMount() {
@@ -61,40 +63,62 @@ class NewUser extends React.Component {
         });
       }
     }
-    this.setState({
-      [type]: e.target.value,
-    }, () => {
-      const { errors } = this.state;
-      if (this.state.passwordConfirmation !== this.state.password && errors.indexOf('Password do not match') === -1) {
-        this.setState({
-          errors: [...errors, 'Password do not match'],
-        });
-      } else if (this.state.passwordConfirmation === this.state.password) {
-        this.setState({
-          errors: errors.filter(elem => elem !== 'Password do not match'),
-        });
-      }
-    });
-  }
 
-  onSubmit = () => {
-    if (this.state.errors.length === 0) {
-      const userInfo = {
-        ...this.state.userInfo,
-        username: this.state.username,
-        password: this.state.password,
-      };
-      axios.post('http://localhost:3005/profile/new/addUser', { userInfo }).then((res) => {
-        if (res.data.status === 'ok') {
-          window.localStorage.setItem('token', res.data.token);
-          window.localStorage.removeItem('newUserToken');
-          this.props.history.push('/profile');
+    if (type === 'age') {
+      const { errors } = this.state;
+      this.setState({
+        age: e.target.value,
+      });
+      // if (!Number.isInteger(Number(e.target.value)) && errors.indexOf('Please enter a valid age') === -1) {
+      //   this.setState({
+      //     errors: [...errors, 'Please enter a valid age'],
+      //   });
+      // } else if ((Number(this.state.age) <= 0 || Number(this.state.age) >= 110) && errors.indexOf('Please enter a valid age') === -1) {
+      //   this.setState({
+      //     errors: [...errors, 'Please enter a valid age'],
+      //   });
+      // } else if ((Number(this.state.age) > 0 || Number(this.state.age) < 110) && this.state.age.length > 0) {
+      //   console.log('valid');
+      //   this.setState({
+      //     errors: errors.filter(elem => elem !== 'Please enter a valid age'),
+      //   });
+      // }
+    } else {
+      this.setState({
+        [type]: e.target.value,
+      }, () => {
+        const { errors } = this.state;
+        if (this.state.passwordConfirmation !== this.state.password && errors.indexOf('Password do not match') === -1) {
+          this.setState({
+            errors: [...errors, 'Password do not match'],
+          });
+        } else if (this.state.passwordConfirmation === this.state.password) {
+          this.setState({
+            errors: errors.filter(elem => elem !== 'Password do not match'),
+          });
         }
       });
     }
   }
-  getErrorElements = () => this.state.errors.map(elem => <li key={shortID.generate()}>{elem}</li>)
 
+  onSubmit = () => {
+    const userInfo = {
+      ...this.state.userInfo,
+      USERNAME: this.state.username,
+      PASSWORD: this.state.password,
+      AGE: Number(this.state.age),
+      EMAIL: this.state.email,
+    };
+    axios.post('http://localhost:3005/profile/new/addUser', { userInfo }).then((res) => {
+      if (res.data.status === 'ok') {
+        window.localStorage.setItem('token', res.data.token);
+        window.localStorage.removeItem('newUserToken');
+        this.props.history.push('/profile');
+      }
+      console.log(res.data);
+    });
+  }
+  getErrorElements = () => this.state.errors.map(elem => <li key={shortID.generate()}>{elem}</li>)
 
   render() {
     return (
@@ -106,6 +130,8 @@ class NewUser extends React.Component {
           <input placeholder="Choose a username" value={this.state.username} type="text" onChange={e => this.onChangeHandler(e, 'username')} />
           <input placeholder="Choose a password" value={this.state.password} type="password" onChange={e => this.onChangeHandler(e, 'password')} />
           <input placeholder="Confirm password" value={this.state.passwordConfirmation} type="password" onChange={e => this.onChangeHandler(e, 'passwordConfirmation')} />
+          <input placeholder="Age" value={this.state.age} type="age" onChange={e => this.onChangeHandler(e, 'age')} />
+          <input placeholder="E-mail" value={this.state.email} type="email" onChange={e => this.onChangeHandler(e, 'email')} />
           <button type="button" onClick={() => this.onSubmit()}>Done</button>
         </div>
       </div>

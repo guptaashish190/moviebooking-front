@@ -4,20 +4,22 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const LocalStrategy = require('passport-local');
 const bcrypt = require('bcrypt');
 const keys = require('./keysecrets');
-const User = require('../models/user.model');
+const User = require('../models/user');
+const UserInfo = require('../models/userInfo');
 const JWT = require('jsonwebtoken');
 const secrets = require('./keysecrets');
 //Local Strategy
 passport.use(new LocalStrategy({
 }, (username, password, done) => {
-    User.findOne({username}).then((user) => {
-        bcrypt.compare(password, user.password, (err, valid) => {
-            console.log(valid);
+    User.findOne({USERNAME : username}).then((user) => {
+        bcrypt.compare(password, user.PASSWORD, (err, valid) => {
             if(valid){
-                done(null, {
-                    token: JWT.sign(user.toJSON(), secrets.jwtSecret),
+                UserInfo.findOne({GOOGLEID: user.GOOGLEID}, (err,userinfo) => {
+                    done(null, {
+                        token: JWT.sign(userinfo.toJSON(), secrets.jwtSecret),
+                    });
                 });
-            }else{
+            } else {
                 done(null, {
                     token: null,
                 });
@@ -32,28 +34,26 @@ passport.use(new LocalStrategy({
 
 }));
 
-// Facebook Strategy
-passport.use(new FacebookStrategy(
+passport.use('google',new GoogleStrategy(
     {
-        clientID: keys.facebookAPI.ID,
-        clientSecret: keys.facebookAPI.secret,
-        callbackURL: '/auth/facebook/redirect',
-        profileFields: ['id', 'displayName', 'photos', 'email']
+        callbackURL: '/auth/google/redirect',
+        clientID : keys.googleAPI.ID,
+        clientSecret: keys.googleAPI.secret
     },
-    (accessToken, refreshToken, profile, done) => {
-        User.findOne({userID: profile.id}, (err,user) => {
-
+    (accessToken, refreshToken, profile, done) =>{
+        User.findOne({GOOGLEID: profile.id}, (err,user) => {
             if(user){
-                done(null, {
-                    newUser: false,
-                    user: user
+                UserInfo.findOne({GOOGLEID: user.GOOGLEID}, (err,userinfo) => {
+                    done(null, {
+                        token: JWT.sign(userinfo.toJSON(), secrets.jwtSecret),
+                    });
                 });
             }else{
                 const newUser = {
-                    userID: profile.id,
-                    displayName: profile.displayName,
-                    email: profile.emails.value,
-                    photoURL: profile.photos[0].value
+                    GOOGLEID: profile.id,
+                    DISPLAYNAME: profile.displayName,
+                    EMAIL: profile.emails.value,
+                    PHOTO: profile.photos[0].value
                 };
                 done(null, {
                     newUser: true,
@@ -64,29 +64,31 @@ passport.use(new FacebookStrategy(
     }
 ));
 
-passport.use(new GoogleStrategy(
+passport.use('googleAdmin',new GoogleStrategy(
     {
         callbackURL: '/auth/google/redirect',
         clientID : keys.googleAPI.ID,
         clientSecret: keys.googleAPI.secret
     },
     (accessToken, refreshToken, profile, done) =>{
-        User.findOne({userID: profile.id}, (err,user) => {
+        Admin.findOne({GOOGLEID: profile.id}, (err,user) => {
             if(user){
-                done(null, {
-                    newUser: false,
-                    user: user
+                AdminInfo.findOne({GOOGLEID: user.GOOGLEID}, (userinfo) => {
+                    done(null, {
+                        token: JWT.sign(userinfo.toJSON(), secrets.jwtSecret),
+                    });
                 });
             }else{
-                const newUser = {
-                    userID: profile.id,
-                    displayName: profile.displayName,
-                    email: profile.emails.value,
-                    photoURL: profile.photos[0].value
+                const newAdmin = {
+                    GOOGLEID: profile.id,
+                    DISPLAYNAME: profile.displayName,
+                    EMAIL: profile.emails.value,
+                    PHOTO: profile.photos[0].value
                 };
                 done(null, {
-                    newUser: true,
-                    user: newUser
+                    newUser: false,
+                    newAdmin: true,
+                    user: newAdmin
                 });
             }
         });

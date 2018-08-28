@@ -4,7 +4,6 @@ const morgan = require("morgan");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const courseProcess = require("./routes/course-process");
 const loginRouter = require('./routes/login-auth');
 const keys = require('./config/keysecrets');
 const profileRouter = require('./routes/profile');
@@ -13,9 +12,10 @@ const passport = require('passport');
 
 const app = express();
  //Connect to mongodb
-mongoose.connect(`mongodb://${keys.mongoDB.user}:${keys.mongoDB.password}@ds131546.mlab.com:31546/ffcsrusers`, (err) => {
-    err ? console.log("Error Connecting to the db: " + err) : console.log("Successfully connected to db");
-  });
+
+ mongoose.connect(`mongodb://${keys.mongoDB.user}:${keys.mongoDB.password}@ds129762.mlab.com:29762/movieticketbooking`, err => {
+        err ? console.log(err) : console.log("Connected to db");
+});
 
 // Use BodyParser for handlingPOST Requests
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,9 +34,6 @@ app.use(express.static(__dirname + "/client/public"));
 app.use(cors({exposedHeaders: 'Authorization'}));
 
 app.use(passport.initialize());
-
-// Index Router
-app.use("/api",courseProcess);
 
 // Login Router
 app.use("/auth",loginRouter);

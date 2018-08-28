@@ -1,28 +1,27 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import React from 'react';
-import Header from './Header/header';
-import Home from './Home';
-import LoginComponent from './Login/index';
-import Profile from './Profile/index';
+import NavigationBar from './NavigationBar';
+import Login from './Login';
+import UserLogin from './Login/UserLogin';
+import AdminLogin from './Login/AdminLogin';
+import protectRouteHOC from './HOCs/protectRouteHOC';
+import Profile from './Profile';
 import ProfileRedirect from './Profile/profileRedirect';
 import NewUser from './Profile/newUser';
-import protectRouteHOC from './HOCs/protectRouteHOC';
 import '../styles/style.scss';
-import timetable from './Timetable';
 
 class App extends React.Component {
   render() {
     return (
       <Router>
         <div>
-          <Header />
-          <Route exact path="/login" component={LoginComponent} />
+          <NavigationBar />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/login/userlogin" component={UserLogin} />
+          <Route exact path="/login/adminlogin" component={AdminLogin} />
           <Route exact path="/profile" component={protectRouteHOC(Profile)} />
-          <Route path="/timetable" component={protectRouteHOC(timetable)} />
           <Route exact path="/redirect" component={ProfileRedirect} />
           <Route exact path="/profile/new" component={NewUser} />
-          <Route path="/about" component={LoginComponent} />
-          <Route exact path="/" component={Home} />
         </div>
       </Router>
     );

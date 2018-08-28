@@ -19,6 +19,11 @@ router.get('/google',passport.authenticate('google',{
     prompt : "select_account" 
 }));
 
+router.get('/admin/google',passport.authenticate('googleAdmin',{
+    scope: ['profile', 'email'],    
+    prompt : "select_account"
+}));
+
 // Google Auth Callback
 router.get('/google/redirect',passport.authenticate('google',{session: false}), (req,res) => {
     let token = '';
@@ -28,8 +33,14 @@ router.get('/google/redirect',passport.authenticate('google',{session: false}), 
             newUser: req.user.newUser
         };
         token = JWT.sign(data, config.jwtSecret);
+    } else if(req.user.newAdmin){
+        const data = {
+            user: req.user.user,
+            newAdmin: req.user.newAdmin
+        }
+        token = JWT.sign(data, config.jwtSecret);
     }else{
-        token = JWT.sign(req.user.user.toJSON(), config.jwtSecret);
+         token  = req.user.token;
     }
     res.redirect("http://localhost:8080/redirect/?token=" + token); 
 });
@@ -40,19 +51,6 @@ router.get('/facebook', passport.authenticate('facebook',{
     scope: ['email']
 }));
 
-router.get('/facebook/redirect', passport.authenticate('facebook',{session: false}), (req, res) => {
-    let token = '';
-    if(req.user.newUser){
-        const data = {
-            user: req.user.user,
-            newUser: req.user.newUser
-        };
-        token = JWT.sign(data, config.jwtSecret);
-    }else{
-        token = JWT.sign(req.user.user.toJSON(), config.jwtSecret);
-    }
-    res.redirect("http://localhost:8080/redirect/?token=" + token); 
-});
 
 router.get('/verifyToken', (req,res) => {
     const token = req.headers.authorization.split(" ")[1];
