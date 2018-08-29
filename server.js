@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const loginRouter = require('./routes/login-auth');
 const keys = require('./config/keysecrets');
 const profileRouter = require('./routes/profile');
+const adminRouter = require('./routes/admin');
 const passport = require('passport');
 //mongoose.set('debug', true);
 
@@ -40,6 +41,10 @@ app.use("/auth",loginRouter);
 
 //Profile Routes
 app.use("/profile", profileRouter);
+
+//Admin Routes
+app.use("/admin", adminRouter);
+
 
 // Listening to PORT
 app.listen(PORT, ()=>{

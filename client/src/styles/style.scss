@@ -75,6 +75,35 @@ a{
             border: 1px solid rgb(158, 158, 158);
         }
     }
+
+    .adminHeader{
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        left: 30%;
+        font-weight: bold;
+        background: #EDDB43;
+        display: flex;
+        align-items: center;
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+        .usernameText{
+            font-size: 0.9em;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 2px;
+            padding: 10px;
+            color: rgb(41, 41, 41);
+        }
+        img {
+            border-radius: 50%;
+            display: block;
+            width: 30px;
+            margin: 7px;
+            height: 30px;
+            border: 1px solid rgb(158, 158, 158);
+        }
+    }
 }
 
 .login{
@@ -231,6 +260,17 @@ a{
                 box-shadow: 3px 3px 10px rgba(34, 34, 34, 0.363);
             }
             
+        }
+    }
+    .new-admin{
+        padding: 10px;
+        background: #EDDB43;
+        border: 1px solid #D1B748;
+        border-radius: 3px;
+        font-family: 'Lato', sans-serif; 
+        transition: background-color 0.3s ease-out 0s;
+        &:hover{
+            background: #D1B748;
         }
     }
 }

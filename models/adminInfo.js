@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const AdminInfoSchema = new Schema({
-    GOOGLEID: String,
+    ADMINNAME: String,
+    DISPLAYNAME: String,
     EMAIL: String,
-    PHOTO: String,
     AGE: String,
 });
 

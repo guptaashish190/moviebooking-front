@@ -8,6 +8,10 @@ import protectRouteHOC from './HOCs/protectRouteHOC';
 import Profile from './Profile';
 import ProfileRedirect from './Profile/profileRedirect';
 import NewUser from './Profile/newUser';
+import AdminProfile from './Admin/Profile';
+import protectAdminRouteHOC from './HOCs/protectAdminRouteHOC';
+import NewAdmin from './Admin/newAdmin';
+
 import '../styles/style.scss';
 
 class App extends React.Component {
@@ -22,6 +26,8 @@ class App extends React.Component {
           <Route exact path="/profile" component={protectRouteHOC(Profile)} />
           <Route exact path="/redirect" component={ProfileRedirect} />
           <Route exact path="/profile/new" component={NewUser} />
+          <Route exact path="/admin" component={protectAdminRouteHOC(AdminProfile)} />
+          <Route exact path="/admin/new" component={NewAdmin} />
         </div>
       </Router>
     );

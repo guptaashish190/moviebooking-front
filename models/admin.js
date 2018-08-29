@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const bcrypt = require("bcrypt");
 
 const AdminSchema = new Schema({
     ADMINNAME: String,
     PASSWORD: String,
-    GOOGLEID: String,
 });
 
 AdminSchema.pre('save', function(next){
