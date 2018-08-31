@@ -5,6 +5,7 @@ const TheatreSchema = new Schema({
     NAME: String,
     MOVIES: Array,
     LOCATION: String,
+    ID: String,
 });
 
 module.exports = mongoose.model("Theatres", TheatreSchema, "Theatres");

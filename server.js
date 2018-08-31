@@ -8,6 +8,7 @@ const loginRouter = require('./routes/login-auth');
 const keys = require('./config/keysecrets');
 const profileRouter = require('./routes/profile');
 const adminRouter = require('./routes/admin');
+const editDBRouter = require('./routes/editdb');
 const passport = require('passport');
 //mongoose.set('debug', true);
 
@@ -44,6 +45,9 @@ app.use("/profile", profileRouter);
 
 //Admin Routes
 app.use("/admin", adminRouter);
+
+//Edit Database Routes
+app.use("/editdb", editDBRouter);
 
 
 // Listening to PORT

@@ -87,7 +87,6 @@ class NewUser extends React.Component {
         } else {
           alert('Admin Key is incorrect');
         }
-        console.log(res.data);
       });
     } else {
       this.setState({

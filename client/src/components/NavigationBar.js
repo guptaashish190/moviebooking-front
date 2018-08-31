@@ -10,7 +10,7 @@ class NavigationBar extends React.Component {
     if (Object.keys(this.props.user).length !== 0) {
       return <div className="userHeader" ><span className="usernameText">{this.props.user.DISPLAYNAME}</span><img src={this.props.user.PHOTO} alt="PP" /></div>;
     } else if (Object.keys(this.props.admin).length !== 0) {
-      return <div className="adminHeader" ><span className="usernameText">{this.props.admin.DISPLAYNAME}</span></div>;
+      return <div className="adminHeader" ><span className="usernameText">Admin: {this.props.admin.DISPLAYNAME}</span></div>;
     }
     return <div style={{ display: 'none' }} />;
   }
@@ -27,8 +27,9 @@ class NavigationBar extends React.Component {
   getMenuItems = () => (
     <ul>
       <li><Link to="/home" >HOME</Link></li>
-      <li><Link to="/movies" >MOVIES</Link></li>
-      <li><Link to="/theatres" >THEATRES</Link></li>
+      {Object.keys(this.props.user).length !== 0 ? <li><Link to="/movies" >MOVIES</Link></li> : ''}
+      {Object.keys(this.props.user).length !== 0 ? <li><Link to="/theatres" >THEATRES</Link></li> : ''}
+      {Object.keys(this.props.admin).length !== 0 ? <li><Link to="/editDB" >MODIFY DB</Link></li> : ''}
       {this.getLogoutButton()}
       <li><Link to="/about" >ABOUT</Link></li>
     </ul>

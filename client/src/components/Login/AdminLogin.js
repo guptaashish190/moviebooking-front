@@ -10,9 +10,9 @@ class Login extends React.Component {
   }
 
   componentWillMount() {
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem('adminToken');
     if (token) {
-      this.props.history.push('/profile');
+      this.props.history.push('/admin');
     }
     return true;
   }

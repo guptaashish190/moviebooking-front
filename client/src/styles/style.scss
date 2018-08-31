@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Lato|Poller+One');
+@import url('https://fonts.googleapis.com/css?family=Roboto|Poller+One');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 body, html {
     background : #e6e6e6;
@@ -39,7 +40,7 @@ a{
         li{
             color: lighten(#142426,50);
             padding: 20px;
-            font-family: 'Lato', sans-serif;
+            font-family: 'Roboto', sans-serif;
             cursor: pointer;
             transition: color 0.3s ease 0s;
             &:hover{
@@ -106,7 +107,264 @@ a{
     }
 }
 
-.login{
+.edit-db-container{
+    position: relative;
+    height: 88vh;
+    width: 100%;
+    .heading{
+        padding: 20px;
+        font-size: 2em;
+        font-weight: bold;
+        font-family: 'Roboto', sans-serif;
+    }
+    table{
+        width: 100%;
+        th, td{
+            
+        }
+        thead{
+            th{
+                background: rgb(209, 209, 209);
+                padding: 10px;
+                font-weight: 100;
+                font-family: 'Roboto', sans-serif;
+                border-spacing: 0;
+            }
+        }
+        tbody{
+            td{
+                background: rgb(233, 233, 233);
+                padding: 10px;
+                font-weight: 100;
+                font-family: 'Roboto', sans-serif;
+                text-align: center;
+                border: 1px solid rgb(204, 204, 204);
+            } 
+        }
+    }
+    
+}
+.add-buttons{
+    right: 30px;
+    bottom: 30px;
+    position: fixed;
+    
+    a{
+        background-color: #FFFD84;
+        border: 1px solid rgb(156, 154, 0);
+        border-radius: 4px;
+        font-family: 'Roboto', sans-serif;
+        padding: 10px;
+        transition: background-color 0.3s ease 0s;
+        cursor: pointer;
+        margin: 10px;
+        &:hover{
+            background: rgb(228, 224, 0);
+        }
+    }
+   
+}
+.add-theatre-container, .add-movie-container, .theatre-movies-container{
+    width: 100%;
+    height: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    span{
+        margin-bottom: 50px;
+        font-family: 'Roboto', sans-serif;  
+        font-weight: bold;
+        font-size: 2em;
+    }
+    select{
+        margin: 10px;
+        padding: 10px;
+        width: 100px;
+    }
+    .add-theatre, .add-movie{
+        padding: 50px;
+        background: #aaa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        flex-direction: column;
+        input{
+            padding: 10px;
+            margin :10px;
+            border: none;
+            background: #ddd;
+        }
+        button{
+            padding: 20px;
+            width: 100px;
+            border: none;
+            margin-top: 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #002F36;
+            color: #ddd;
+            transition: background-color 0.3s ease 0s;
+            &:hover{
+             background: rgb(0, 77, 88);
+            }
+        }
+        
+    }
+    .photo-url{
+        height: 200px;
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        box-shadow: 3px 3px 10px rgb(105, 105, 105);
+    }
+    
+}
+.add-movie-container{
+    flex-direction: row;
+    
+    ul{
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        li{
+            padding: 10px;
+        background: rgb(185, 185, 185);
+        border-radius: 3px; 
+        margin: 2px;
+        position: relative;
+            button{
+                position: absolute;
+                right: 10px;
+            }
+    }
+    }
+}
+.theatre-movies-container{
+    display: block;
+    
+    .heading{
+        padding: 20px;
+        font-size: 2em;
+        font-weight: bold;
+        font-family: 'Roboto', sans-serif;
+    }
+    td{
+        word-wrap: break-word;
+        max-width: 200px;
+        img{
+            height: 100px;
+        }
+    }
+    table{
+        width: 100%;
+        thead{
+            th{
+                background: rgb(209, 209, 209);
+                padding: 10px;
+                font-weight: 100;
+                font-family: 'Roboto', sans-serif;
+                border-spacing: 0;
+            }
+        }
+        tbody{
+            td{
+                background: rgb(233, 233, 233);
+                padding: 10px;
+                font-weight: 100;
+                font-family: 'Roboto', sans-serif;
+                text-align: center;
+                border: 1px solid rgb(204, 204, 204);
+            } 
+        }
+    }
+    .add-movies-theatre{
+        position: fixed;
+        top: 76px;
+        right: 100px;
+        background-color: rgb(151, 151, 151);
+        border-radius: 4px;
+        padding: 2px;
+        button{
+            
+        background-color: rgb(164, 166, 255);
+        border: 1px solid rgb(126, 182, 255);
+        border-radius: 4px;
+        font-family: 'Roboto', sans-serif;
+        padding: 10px;
+        transition: background-color 0.3s ease 0s;
+        cursor: pointer;
+        margin: 10px;
+        &:hover{
+            background: rgb(126, 182, 255);
+        }
+        }
+    }
+}
+
+.edit-movies-container{
+        position: relative;
+        height: 88vh;
+        width: 100%;span{
+        margin-bottom: 50px;
+        font-family: 'Roboto', sans-serif;  
+        font-weight: bold;
+        font-size: 2em;
+    }
+    .heading{
+        padding: 20px;
+        font-size: 2em;
+        font-weight: bold;
+        font-family: 'Roboto', sans-serif;
+    }
+        td{
+            word-wrap: break-word;
+            max-width: 200px;
+            img{
+                height: 100px;
+            }
+        }
+        table{
+            width: 100%;
+            thead{
+                th{
+                    background: rgb(209, 209, 209);
+                    padding: 10px;
+                    font-weight: 100;
+                    font-family: 'Roboto', sans-serif;
+                    border-spacing: 0;
+                }
+            }
+            tbody{
+                td{
+                    background: rgb(233, 233, 233);
+                    padding: 10px;
+                    font-weight: 100;
+                    font-family: 'Roboto', sans-serif;
+                    text-align: center;
+                    border: 1px solid rgb(204, 204, 204);
+                } 
+            }
+        }
+        .add-movie-button{
+            z-index: 2;
+            padding: 10px;
+            background-color: #FFFD84;
+            border: 1px solid rgb(156, 154, 0);
+            position: fixed;
+            border-radius: 4px;
+            cursor: pointer;
+            right: 30px;
+            bottom: 30px;
+            transition: background-color 0.3s ease 0s;
+            &:hover{
+                background: rgb(228, 224, 0);
+            }
+        }
+}
+.login, .edit-options{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -117,7 +375,7 @@ a{
         font-size: 2em;
         border-radius: 4px;
         background: #EDDB43;
-        font-family: 'Lato', sans-serif;
+        font-family: 'Roboto', sans-serif;
         transition: background-color 0.3s ease 0s;
         box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.37);
         &:hover{
@@ -267,7 +525,7 @@ a{
         background: #EDDB43;
         border: 1px solid #D1B748;
         border-radius: 3px;
-        font-family: 'Lato', sans-serif; 
+        font-family: 'Roboto', sans-serif; 
         transition: background-color 0.3s ease-out 0s;
         &:hover{
             background: #D1B748;
@@ -319,4 +577,3 @@ a{
         background: #E74B37;
       }
   }
-  
