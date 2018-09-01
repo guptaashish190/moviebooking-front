@@ -2,6 +2,7 @@ const router = require('express').Router();
 const Theatre = require('../models/theatre');
 const Language = require('../models/language');
 const Movie = require('../models/movies');
+const Ticket = require('../models/ticket');
 
 router.post('/theatres/add', (req, res) => {
     new Theatre(req.body.theatre).save().then((th) => {
@@ -72,7 +73,9 @@ router.get('/getTheatrefromID', (req, res) => {
 });
 
 router.get('/getMovies', (req, res) => {
-    Movie.find().then(data => {
+    Movie.find().then(data => {    
+        console.log(data);
+
         res.send(data);
     });
 });
@@ -90,5 +93,48 @@ router.get('/getLanguages', (req, res) => {
         res.send(data);
     });
 });
+
+router.get('/getTicketByID', (req, res) => {
+    const { ticketid } = req.query;
+    Ticket.findById(ticketid).then(ticket => {
+        console.log(ticket);
+        res.send(ticket);
+    });
+});
+
+
+router.post('/booktickets', (req, res) => {
+    const { TICKETINFO } = req.body;
+    new Ticket(TICKETINFO).save().then( ticket => {
+        res.send(ticket);
+    });
+
+    Theatre.findOne({ID: TICKETINFO.THEATREID}, (err, restheatre) => {
+        const theatre = restheatre;
+        let timeString = '';
+        if(TICKETINFO.TIME === 5){
+            timeString = '5:00PM';
+        }else if(TICKETINFO.TIME === 10){
+            timeString = '10:00AM';
+        }else if(TICKETINFO.TIME === 9){
+            timeString = '9:00PM';
+        }
+
+        const seatsselected = TICKETINFO.SEATS.split(',');
+
+        const movieindex = theatre.MOVIES.findIndex(movie => movie.ID === TICKETINFO.MOVIEID);
+        
+        console.log(timeString,movieindex);
+        const timeIndex = theatre.MOVIES[movieindex].TIMES.findIndex(time => time.TIME === timeString);
+        
+        console.log(timeIndex);
+        theatre.MOVIES[movieindex].TIMES[timeIndex].SEATSBOOKED.push(...seatsselected);
+
+        Theatre.findOneAndUpdate({ID: TICKETINFO.THEATREID}, theatre, (resdata) => {
+        });
+    });
+
+});
+
 
 module.exports = router;

@@ -26,7 +26,7 @@ class NavigationBar extends React.Component {
 
   getMenuItems = () => (
     <ul>
-      <li><Link to="/home" >HOME</Link></li>
+      {Object.keys(this.props.user).length !== 0 ? <li><Link to="/user/home" >HOME</Link></li> : <li><Link to="/home" >HOME</Link></li>}
       {Object.keys(this.props.user).length !== 0 ? <li><Link to="/movies" >MOVIES</Link></li> : ''}
       {Object.keys(this.props.user).length !== 0 ? <li><Link to="/theatres" >THEATRES</Link></li> : ''}
       {Object.keys(this.props.admin).length !== 0 ? <li><Link to="/editDB" >MODIFY DB</Link></li> : ''}

@@ -4,9 +4,10 @@ const Schema = mongoose.Schema;
 const TicketSchema = new Schema({
     MOVIEID: String,
     TIME: String,
-    BUYERID: String,
-    AMOUNT: Number,
-    NUMBERSEATS: Number,
+    DATE: String,
+    SEATS: String,
+    GOOGLEID: String,
+    THEATREID: String,
 });
 
 module.exports = mongoose.model("Ticket", TicketSchema, "Ticket");
