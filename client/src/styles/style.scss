@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto|Poller+One');
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700');
 
 body, html {
     background : #e6e6e6;
@@ -24,14 +25,14 @@ a{
     flex-direction: row;
     justify-content: space-between;
     span{
-        color: lighten(#142426,80);
-        font-size: 1.4em;
+        color: rgb(255, 238, 160);
+        font-size: 1.7em;
         padding : 10px;
         padding-left: 30px;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-family: 'Poller One', cursive;
+        font-family: 'Open Sans Condensed', sans-serif;
     }
     ul{
         display: flex;
@@ -549,11 +550,14 @@ a{
         display: flex;
         flex-direction: row;
         list-style-type: none;
+        margin: 10px;
         li{
             background: #FFFD84;
             margin: 20px;
             border-radius: 10px;
             border: 1px solid rgb(167, 164, 0);
+            box-shadow: 2px 2px 30px rgba(19, 0, 0, 0.26);
+            box-shadow: 2px 2px 30px rgba(19, 0, 0, 0.26), 2px 2px 30px rgba(209, 118, 0, 0.322) inset;
             img{
                 height: 300px;
                 border-radius: 10px;
@@ -842,6 +846,102 @@ a{
         border: 1px solid rgb(185, 182, 0);
     }
 }
+
+.my-tickets{
+    position: relative;
+    top: 77px;
+    display: flex;
+    flex-direction: column;
+    ul{
+        list-style-type: none;
+        li{
+            width: 700px;
+            margin: 10px;
+            background: rgb(0, 80, 92);
+            border: 1px solid rgb(0, 25, 29);
+            div{
+                position: relative;
+                span{
+                    padding: 10px;
+                }
+                font-family: 'Lato', sans-serif;
+                display: flex;
+                font-weight: bold;
+                color: rgba(245, 255, 103, 0.644);
+                flex-direction: column;
+                padding: 10px;
+                .info{
+                    font-weight: 300;
+                    color: rgba(221, 221, 221, 0.815);
+                }
+                a{
+                    position: absolute;
+                    top: 40%;
+                    right: 50px;
+                    width: 150px;
+                    text-align: center;
+                    color: #ddd;
+                    padding: 12px;
+                    background: rgb(255, 127, 127);
+                    border-radius: 4px;
+                    border: 1px solid rgb(255, 95, 95);
+                }
+            }
+        }
+    }
+}
+
+
+.all-tickets{
+    position: relative;
+    top: 77px;
+    display: flex;
+    flex-direction: column;
+    ul{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        list-style-type: none;
+        padding-left: 10px;
+        li{
+            width: 400px;
+            margin: 5px;
+            background: rgb(190, 190, 190);
+            border: 1px solid rgb(0, 25, 29);
+            div{
+                position: relative;
+                span{
+                    padding: 5px;
+                }
+                font-family: 'Lato', sans-serif;
+                display: flex;
+                font-weight: bold;
+                color: rgba(20, 20, 20, 0.644);
+                flex-direction: column;
+                padding: 10px;
+                .info{
+                    font-weight: 300;
+                    color: rgba(82, 82, 82, 0.815);
+                }
+            
+                button{
+                    width: 20px;
+                    text-align: center;
+                    color: rgb(255, 0, 0);
+                    height: 20px;
+                    position: absolute;
+                    font-family: 'Courier New', Courier, monospace;
+                    cursor: pointer;
+                    right: -10px;
+                    top: -10px;
+                    border-radius: 50%;
+                    background: rgb(255, 127, 127);
+                    border: 1px solid red;
+                }
+            }
+        }
+    }
+}
+
 
 //Google and Facebook Buttons
 .loginBtn {

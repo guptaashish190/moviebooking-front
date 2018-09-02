@@ -102,6 +102,20 @@ router.get('/getTicketByID', (req, res) => {
     });
 });
 
+router.get('/getUserTickets', (req, res) => {
+    const { GOOGLEID } = req.query;
+    console.log(GOOGLEID);
+    Ticket.find({GOOGLEID}).then(tickets => {
+        console.log(tickets);
+        res.send(tickets);
+    });
+});
+
+router.get('/getAllTickets', (req, res) => {
+    Ticket.find({}).then(tickets => {
+        res.send(tickets);
+    });
+});
 
 router.post('/booktickets', (req, res) => {
     const { TICKETINFO } = req.body;

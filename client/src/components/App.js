@@ -23,10 +23,12 @@ import ViewBookTheatres from './Book/ViewBookTheatres';
 import ViewBookSeats from './Book/ViewBookSeats';
 import TicketSummary from './Book/summary';
 import Booking from './Book/Booking';
+import MyTickets from './Home/MyTickets';
 import Home from './Home';
 
 import '../styles/style.scss';
 import EditTheatreMovies from './EditDB/editTheatreMovies';
+import AllTickets from './EditDB/ViewAllTickets';
 
 class App extends React.Component {
   render() {
@@ -38,6 +40,8 @@ class App extends React.Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/user/home" component={protectRouteHOC(Home)} />
           <Route exact path="/about" component={Home} />
+          <Route exact path="/user/tickets" component={protectRouteHOC(MyTickets)} />
+          <Route exact path="/admin/tickets" component={protectAdminRouteHOC(AllTickets)} />
           <Route exact path="/login/userlogin" component={UserLogin} />
           <Route exact path="/login/adminlogin" component={AdminLogin} />
           <Route exact path="/profile" component={protectRouteHOC(Profile)} />

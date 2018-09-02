@@ -6,7 +6,6 @@ import adminLoginActions from '../actions/adminLoginActions';
 
 class NavigationBar extends React.Component {
   getUsernameText = () => {
-    console.log(this.props.admin);
     if (Object.keys(this.props.user).length !== 0) {
       return <div className="userHeader" ><span className="usernameText">{this.props.user.DISPLAYNAME}</span><img src={this.props.user.PHOTO} alt="PP" /></div>;
     } else if (Object.keys(this.props.admin).length !== 0) {
@@ -26,10 +25,10 @@ class NavigationBar extends React.Component {
 
   getMenuItems = () => (
     <ul>
-      {Object.keys(this.props.user).length !== 0 ? <li><Link to="/user/home" >HOME</Link></li> : <li><Link to="/home" >HOME</Link></li>}
-      {Object.keys(this.props.user).length !== 0 ? <li><Link to="/movies" >MOVIES</Link></li> : ''}
-      {Object.keys(this.props.user).length !== 0 ? <li><Link to="/theatres" >THEATRES</Link></li> : ''}
+      {Object.keys(this.props.user).length !== 0 ? <li><Link to="/user/home" >MOVIES</Link></li> : ''}
+      {Object.keys(this.props.user).length !== 0 ? <li><Link to="/user/tickets" >MY TICKETS</Link></li> : ''}
       {Object.keys(this.props.admin).length !== 0 ? <li><Link to="/editDB" >MODIFY DB</Link></li> : ''}
+      {Object.keys(this.props.admin).length !== 0 ? <li><Link to="/admin/tickets" >USER TICKETS</Link></li> : ''}
       {this.getLogoutButton()}
       <li><Link to="/about" >ABOUT</Link></li>
     </ul>
@@ -38,7 +37,7 @@ class NavigationBar extends React.Component {
   render() {
     return (
       <div className="navigation-bar">
-        <span>showTime</span>
+        <span>SHOWTiME</span>
         {this.getUsernameText()}
         {this.getMenuItems()}
       </div>

@@ -24,7 +24,7 @@ class ProfileRedirect extends React.Component {
         this.props.history.push('/admin');
       } else {
         window.localStorage.setItem('token', token);
-        this.props.history.push('/profile');
+        this.props.history.push('/user/home');
       }
     }).catch(() => this.props.history.push('/login'));
   }
