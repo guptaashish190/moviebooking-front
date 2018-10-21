@@ -15,8 +15,9 @@ class AddMovie extends React.Component {
       ID: '',
     }
     componentWillMount() {
+      this.props.setLoading(true);
       axios.get(`${config.bserver}/editdb/getMoviefromID`, { params: { ID: queryString.parse(location.search).id } }).then((res) => {
-        console.log(res.data);
+        this.props.setLoading(false);
         this.setState({
           name: res.data.NAME,
           photo: res.data.PHOTO,

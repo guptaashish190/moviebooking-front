@@ -13,7 +13,9 @@ class AddMovie extends React.Component {
       description: '',
     }
     componentWillMount() {
+      this.props.setLoading(true);
       axios.get(`${config.bserver}/editdb/getLanguages`).then((res) => {
+        this.props.setLoading(false);
         this.setState({
           languages: res.data,
           selectedLanguage: res.data[0].ID,
@@ -42,7 +44,9 @@ class AddMovie extends React.Component {
           DESCRIPTION: this.state.description,
           ID: shortID.generate(),
         };
+        this.props.setLoading(true);
         axios.post(`${config.bserver}/editdb/movies/add`, { movie }).then(() => {
+          this.props.setLoading(false);
           this.props.history.push('/editdb/viewMovies');
         });
       }

@@ -11,10 +11,9 @@ class EditMovies extends React.Component {
     }
 
     componentWillMount() {
-      const tid = queryString.parse(location.search).id;
-
+      this.props.setLoading(true);
       axios.get(`${config.bserver}/editdb/getMovies`).then((res) => {
-        console.log(res.data);
+        this.props.setLoading(false);
         this.setState({
           movies: res.data,
         });

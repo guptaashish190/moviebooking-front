@@ -19,7 +19,9 @@ class EditTheatreMovies extends React.Component {
       this.setState({
         id,
       });
+      this.props.setLoading(true);
       axios.get(`${config.bserver}/editdb/getTheatrefromID`, { params: { ID: id } }).then((res) => {
+        this.props.setLoading(false);
         this.setState({
           name: res.data.NAME,
           location: res.data.LOCATION,

@@ -11,7 +11,9 @@ class AllTickets extends React.Component {
 
 
   componentWillMount() {
+    this.props.setLoading(true);
     axios.get(`${config.bserver}/editdb/getAllTickets`).then((res) => {
+      this.props.setLoading(false);
       this.setState({
         tickets: [...res.data],
       });

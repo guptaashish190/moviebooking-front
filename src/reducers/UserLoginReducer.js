@@ -1,5 +1,6 @@
 const initialState = {
-  user: {},
+  user: {
+  },
 };
 
 export default function (state = initialState, action) {

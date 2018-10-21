@@ -15,7 +15,9 @@ class AddTheatre extends React.Component {
 
     componentWillMount() {
       const { id } = queryString.parse(location.search);
+      this.props.setLoading(true);
       axios.get(`${config.bserver}/editdb/getTheatrefromID`, { params: { ID: id } }).then((res) => {
+        this.props.setLoading(false);
         this.setState({
           name: res.data.NAME,
           location: res.data.LOCATION,

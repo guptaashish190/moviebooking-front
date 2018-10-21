@@ -20,7 +20,9 @@ class TicketSummary extends React.Component {
     const {
       movieid, theatreid, time, selectedseats,
     } = queryString.parse(location.search);
+    this.props.setLoading(true);
     axios.get(`${config.bserver}/editdb/getTheatrefromID`, { params: { ID: theatreid } }).then((res) => {
+      this.props.setLoading(false);
       this.setState({
         theatreid,
         movieid,

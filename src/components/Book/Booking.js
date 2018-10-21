@@ -14,10 +14,12 @@ class TicketSummary extends React.Component {
 
   componentWillMount() {
     const { ticketid } = queryString.parse(location.search);
+    this.props.setLoading(true);
     axios.get(`${config.bserver}/editdb/getTicketByID`, { params: { ticketid } }).then((res) => {
       this.setState({
         ticket: res.data,
       }, () => {
+        this.props.setLoading(false);
         axios.get(`${config.bserver}/editdb/getTheatrefromID`, { params: { ID: this.state.ticket.THEATREID } }).then((th) => {
           this.setState({
             theatre: th.data,

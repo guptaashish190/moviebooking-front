@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import userLoginActions from '../../actions/userLoginActions';
 import config from '../../../config';
+import generalActions from '../../actions/generalActions';
 
 // ROUTE PROTECT HOC
 
@@ -37,7 +38,7 @@ const protectedRouteHOC = (WrappedComponent) => {
 
     render() {
       return (
-        <WrappedComponent user={this.props.user} setUser={this.props.setUser} />
+        <WrappedComponent {...this.props} />
       );
     }
   }
@@ -49,6 +50,7 @@ const protectedRouteHOC = (WrappedComponent) => {
 
   function mapDispatchToProps(dispatch) {
     return {
+      setLoading: load => dispatch(generalActions.setLoading(load)),
       setUser: user => dispatch(userLoginActions.setUser(user)),
     };
   }

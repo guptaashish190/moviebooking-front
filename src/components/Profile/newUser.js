@@ -110,13 +110,14 @@ class NewUser extends React.Component {
       AGE: Number(this.state.age),
       EMAIL: this.state.email,
     };
+    this.props.setLoading(true);
     axios.post(`${config.bserver}/profile/new/addUser`, { userInfo }).then((res) => {
+      this.props.setLoading(false);
       if (res.data.status === 'ok') {
         window.localStorage.setItem('token', res.data.token);
         window.localStorage.removeItem('newUserToken');
         this.props.history.push('/profile');
       }
-      console.log(res.data);
     });
   }
   getErrorElements = () => this.state.errors.map(elem => <li key={shortID.generate()}>{elem}</li>)

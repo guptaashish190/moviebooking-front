@@ -9,7 +9,9 @@ class Home extends React.Component {
   }
 
   componentWillMount() {
+    this.props.setLoading(true);
     axios.get(`${config.bserver}/editdb/getMovies`).then((res) => {
+      this.props.setLoading(false);
       this.setState({
         movies: res.data,
       });
@@ -17,8 +19,8 @@ class Home extends React.Component {
   }
 
   getMovieThumbnails = () => (this.state.movies.map(movie => (
-    <li>
-      <img key={shortID.generate()} src={movie.PHOTO} alt="thm" />
+    <li key={shortID.generate()} >
+      <img src={movie.PHOTO} alt="thm" />
       <div>
         <div className="movie-heading">{movie.NAME}</div>
         <div><a href={`/viewMovie/?movieid=${movie.ID}`} >VIEW</a></div>
@@ -36,6 +38,5 @@ class Home extends React.Component {
     );
   }
 }
-
 
 export default Home;

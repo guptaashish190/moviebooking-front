@@ -24,7 +24,9 @@ class Login extends React.Component {
   }
 
   onSubmitLocal = () => {
+    this.props.setLoading(true);
     axios.post(`${config.bserver}/auth/local`, { username: this.state.username, password: this.state.password }).then((res) => {
+      this.props.setLoading(false);
       if (!res.data.token) {
         this.setState({
           err: 'User credentials error',

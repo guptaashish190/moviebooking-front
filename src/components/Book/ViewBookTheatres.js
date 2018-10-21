@@ -11,7 +11,9 @@ class ViewBookTheatres extends React.Component {
   }
 
   componentWillMount() {
+    this.props.setLoading(true);
     axios.get(`${config.bserver}/editdb/getTheatres`).then((res) => {
+      this.props.setLoading(false);
       this.setState({
         theatres: res.data,
       }, () => {

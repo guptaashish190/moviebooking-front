@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import adminLoginActions from '../../actions/adminLoginActions';
 import config from '../../../config';
+import generalActions from '../../actions/generalActions';
 
 // ROUTE PROTECT HOC
 
@@ -37,7 +38,7 @@ const protectedRouteHOC = (WrappedComponent) => {
 
     render() {
       return (
-        <WrappedComponent admin={this.props.admin} setAdmin={this.props.setAdmin} />
+        <WrappedComponent {...this.props} />
       );
     }
   }
@@ -50,6 +51,7 @@ const protectedRouteHOC = (WrappedComponent) => {
   function mapDispatchToProps(dispatch) {
     return {
       setAdmin: admin => dispatch(adminLoginActions.setAdmin(admin)),
+      setLoading: load => dispatch(generalActions.setLoading(load)),
     };
   }
   return withRouter(connect(mapStateToProps, mapDispatchToProps)(ProtectedRoute));

@@ -23,7 +23,9 @@ class ViewBookSeats extends React.Component {
       time: Number(time),
     });
 
+    this.props.setLoading(true);
     axios.get(`${config.bserver}/editdb/getTheatrefromID`, { params: { ID: theatreid } }).then((res) => {
+      this.props.setLoading(false);
       this.setState({
         theatre: res.data,
       });

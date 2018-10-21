@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import React from 'react';
+import { connect } from 'react-redux';
 import NavigationBar from './NavigationBar';
 import Login from './Login';
 import UserLogin from './Login/UserLogin';
@@ -25,31 +26,33 @@ import TicketSummary from './Book/summary';
 import Booking from './Book/Booking';
 import MyTickets from './Home/MyTickets';
 import Home from './Home';
+import generalActions from '../actions/generalActions';
 
 import '../styles/style.scss';
 import EditTheatreMovies from './EditDB/editTheatreMovies';
 import AllTickets from './EditDB/ViewAllTickets';
+import Loader from './Loader';
 
 class App extends React.Component {
   render() {
-    const NavBar = protectRouteHOC(NavigationBar);
     return (
       <Router>
         <div>
+          <Loader />
           <NavigationBar />
-          <Route exact path="/login" component={Login} />
+          <Route exact path="/login" component={() => <Login setLoading={this.props.setLoading} />} />
           <Route exact path="/user/home" component={protectRouteHOC(Home)} />
           <Route exact path="/about" component={Home} />
           <Route exact path="/user/tickets" component={protectRouteHOC(MyTickets)} />
           <Route exact path="/admin/tickets" component={protectAdminRouteHOC(AllTickets)} />
-          <Route exact path="/login/userlogin" component={UserLogin} />
-          <Route exact path="/login/adminlogin" component={AdminLogin} />
+          <Route exact path="/login/userlogin" component={() => <UserLogin setLoading={this.props.setLoading} />} />
+          <Route exact path="/login/adminlogin" component={() => <AdminLogin setLoading={this.props.setLoading} />} />
           <Route exact path="/profile" component={protectRouteHOC(Profile)} />
           <Route exact path="/redirect" component={ProfileRedirect} />
-          <Route exact path="/profile/new" component={NewUser} />
+          <Route exact path="/profile/new" component={() => <NewUser setLoading={this.props.setLoading} />} />
           <Route exact path="/admin" component={protectAdminRouteHOC(AdminProfile)} />
           <Route exact path="/editDB" component={protectAdminRouteHOC(EditDB)} />
-          <Route exact path="/admin/new" component={NewAdmin} />
+          <Route exact path="/admin/new" component={() => <NewAdmin setLoading={this.props.setLoading} />} />
           <Route exact path="/editDB/viewMovies" component={protectAdminRouteHOC(ViewMovies)} />
           <Route exact path="/editDB/addMovie" component={protectAdminRouteHOC(AddMovie)} />
           <Route exact path="/editDB/viewTheatres" component={protectAdminRouteHOC(ViewTheatre)} />
@@ -70,4 +73,12 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  setLoading: type => dispatch(generalActions.setLoading(type)),
+});
+
+
+const mapStateToProps = () => ({
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

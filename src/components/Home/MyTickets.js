@@ -5,15 +5,15 @@ import config from '../../../config';
 
 class MyTicket extends React.Component {
   state = {
-    ticket: '',
     tickets: [],
   }
 
 
   componentWillMount() {
     if (Object.keys(this.props.user).length !== 0) {
-      console.log(this.props.user);
+      this.props.setLoading(true);
       axios.get(`${config.bserver}/editdb/getUserTickets`, { params: { GOOGLEID: this.props.user.GOOGLEID } }).then((res) => {
+        this.props.setLoading(false);
         this.setState({
           tickets: [...res.data],
         });

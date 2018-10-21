@@ -9,7 +9,9 @@ class Home extends React.Component {
   }
 
   componentWillMount() {
+    this.props.setLoading(true);
     axios.get(`${config.bserver}/editdb/getMoviefromID`, { params: { ID: queryString.parse(location.search).movieid } }).then((res) => {
+      this.props.setLoading(false);
       this.setState({
         movie: res.data,
       });

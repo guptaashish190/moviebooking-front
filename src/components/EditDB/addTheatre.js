@@ -32,7 +32,9 @@ class AddTheatre extends React.Component {
           ID: shortID.generate(),
           MOVIES: [],
         };
+        this.props.setLoading(true);
         axios.post(`${config.bserver}/editdb/theatres/add`, { theatre }).then(() => {
+          this.props.setLoading(false);
           this.props.history.push('/editdb');
         });
       }
