@@ -1,3 +1,3 @@
 module.exports = {
-  bserver: 'http://localhost:3005',
+  bserver: 'https://moviebookinghcibackend.herokuapp.com',
 };
