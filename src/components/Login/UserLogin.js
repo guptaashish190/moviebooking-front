@@ -44,7 +44,7 @@ class Login extends React.Component {
           <input name="password" className="textfield" onChange={e => this.onChange(e, 'password')} type="password" placeholder="Password" />
           <input onClick={() => this.onSubmitLocal()} className="login-button" type="button" value="LOGIN" />
         </div>
-        <a className="loginBtn loginBtn--google" href="http://localhost:3005/auth/google" >Login Using Google</a>
+        <a className="loginBtn loginBtn--google" href={`${config.bserver}/auth/google`} >Login Using Google</a>
       </div>
     );
   }
