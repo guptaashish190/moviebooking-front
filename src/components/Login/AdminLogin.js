@@ -44,7 +44,7 @@ class Login extends React.Component {
           <input name="password" className="textfield" onChange={e => this.onChange(e, 'password')} type="password" placeholder="Admin Password" />
           <input onClick={() => this.onSubmitLocal()} className="login-button" type="button" value="LOGIN" />
         </div>
-        <a className="new-admin" href={`${config.bserver}/admin/new`} >New Admin</a>
+        <a className="new-admin" href="/admin/new" >New Admin</a>
       </div>
     );
   }
