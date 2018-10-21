@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import config from '../../../config';
 
 class Login extends React.Component {
   state = {
@@ -23,7 +24,7 @@ class Login extends React.Component {
   }
 
   onSubmitLocal = () => {
-    axios.post('http://localhost:3005/auth/local/admin', { username: this.state.adminname, password: this.state.password }).then((res) => {
+    axios.post(`${config.bserver}/auth/local/admin`, { username: this.state.adminname, password: this.state.password }).then((res) => {
       if (!res.data.token) {
         this.setState({
           err: 'Admin credentials error',

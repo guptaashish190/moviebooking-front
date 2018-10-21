@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import shortID from 'shortid';
+import config from '../../../config';
 
 class NewUser extends React.Component {
   constructor(props) {
@@ -11,10 +12,10 @@ class NewUser extends React.Component {
     if (!token) {
       this.props.history.push('/login');
     }
-    const config = {
+    const headers = {
       headers: { authorization: `Bearer ${token}` },
     };
-    axios.get('http://localhost:3005/auth/verifyToken', config)
+    axios.get(`${config.bserver}/auth/verifyToken`, headers)
       .then((res) => {
         this.setState({
           userInfo: res.data.user.user,
@@ -33,10 +34,10 @@ class NewUser extends React.Component {
   }
   componentWillMount() {
     const token = window.localStorage.getItem('newUserToken');
-    const config = {
+    const headers = {
       headers: { authorization: `Bearer ${token}` },
     };
-    axios.get('http://localhost:3005/auth/verifyToken', config)
+    axios.get(`${config.bserver}/auth/verifyToken`, headers)
       .then((res) => {
         console.log(res.data);
       })
@@ -46,7 +47,7 @@ class NewUser extends React.Component {
   onChangeHandler = (e, type) => {
     if (type === 'username') {
       if (e.target.value.length > 7) {
-        axios.post('http://localhost:3005/profile/new/validateUsername', { username: e.target.value }).then((response) => {
+        axios.post(`${config.bserver}/profile/new/validateUsername`, { username: e.target.value }).then((response) => {
           if (!response.data.valid) {
             this.setState({
               errors: [...this.state.errors, 'Username taken'],
@@ -109,7 +110,7 @@ class NewUser extends React.Component {
       AGE: Number(this.state.age),
       EMAIL: this.state.email,
     };
-    axios.post('http://localhost:3005/profile/new/addUser', { userInfo }).then((res) => {
+    axios.post(`${config.bserver}/profile/new/addUser`, { userInfo }).then((res) => {
       if (res.data.status === 'ok') {
         window.localStorage.setItem('token', res.data.token);
         window.localStorage.removeItem('newUserToken');

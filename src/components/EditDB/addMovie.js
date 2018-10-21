@@ -2,6 +2,7 @@ import React from 'react';
 import shortID from 'shortid';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import config from '../../../config';
 
 class AddMovie extends React.Component {
     state = {
@@ -12,7 +13,7 @@ class AddMovie extends React.Component {
       description: '',
     }
     componentWillMount() {
-      axios.get('http://localhost:3005/editdb/getLanguages').then((res) => {
+      axios.get(`${config.bserver}/editdb/getLanguages`).then((res) => {
         this.setState({
           languages: res.data,
           selectedLanguage: res.data[0].ID,
@@ -41,7 +42,7 @@ class AddMovie extends React.Component {
           DESCRIPTION: this.state.description,
           ID: shortID.generate(),
         };
-        axios.post('http://localhost:3005/editdb/movies/add', { movie }).then(() => {
+        axios.post(`${config.bserver}/editdb/movies/add`, { movie }).then(() => {
           this.props.history.push('/editdb/viewMovies');
         });
       }

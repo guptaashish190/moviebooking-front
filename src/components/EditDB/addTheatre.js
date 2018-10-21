@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import theatreActions from '../../actions/theatreActions';
+import config from '../../../config';
 
 class AddTheatre extends React.Component {
     state = {
@@ -31,7 +32,7 @@ class AddTheatre extends React.Component {
           ID: shortID.generate(),
           MOVIES: [],
         };
-        axios.post('http://localhost:3005/editdb/theatres/add', { theatre }).then(() => {
+        axios.post(`${config.bserver}/editdb/theatres/add`, { theatre }).then(() => {
           this.props.history.push('/editdb');
         });
       }

@@ -23,7 +23,7 @@ const protectedRouteHOC = (WrappedComponent) => {
         const config = {
           headers: { authorization: `Bearer ${token}` },
         };
-        axios.get('http://localhost:3005/auth/verifyToken', config).then((response) => {
+        axios.get(`${config.bserver}/auth/verifyToken`, config).then((response) => {
           if (Object.keys(this.props.admin).length === 0) {
             this.props.setAdmin(response.data.user);
           }

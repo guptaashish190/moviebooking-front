@@ -1,10 +1,9 @@
 import React from 'react';
 import shortID from 'shortid';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import queryString from 'query-string';
-import theatreActions from '../../actions/theatreActions';
+import config from '../../../config';
 
 class EditMovies extends React.Component {
     state = {
@@ -14,7 +13,7 @@ class EditMovies extends React.Component {
     componentWillMount() {
       const tid = queryString.parse(location.search).id;
 
-      axios.get('http://localhost:3005/editdb/getMovies').then((res) => {
+      axios.get(`${config.bserver}/editdb/getMovies`).then((res) => {
         console.log(res.data);
         this.setState({
           movies: res.data,
@@ -57,7 +56,7 @@ class EditMovies extends React.Component {
 
 
     remove = (id) => {
-      axios.post('http://localhost:3005/editdb/movies/removebyid', { ID: id }).then(() => {
+      axios.post(`${config.bserver}/editdb/movies/removebyid`, { ID: id }).then(() => {
         window.location.reload();
       });
     }

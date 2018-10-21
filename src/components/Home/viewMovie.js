@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import shortID from 'shortid';
 import queryString from 'query-string';
+import config from '../../../config';
 
 class Home extends React.Component {
   state = {
@@ -9,7 +9,7 @@ class Home extends React.Component {
   }
 
   componentWillMount() {
-    axios.get('http://localhost:3005/editdb/getMoviefromID', { params: { ID: queryString.parse(location.search).movieid } }).then((res) => {
+    axios.get(`${config.bserver}/editdb/getMoviefromID`, { params: { ID: queryString.parse(location.search).movieid } }).then((res) => {
       this.setState({
         movie: res.data,
       });

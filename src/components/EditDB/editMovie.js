@@ -3,6 +3,7 @@ import shortID from 'shortid';
 import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import axios from 'axios';
+import config from '../../../config';
 
 class AddMovie extends React.Component {
     state = {
@@ -14,7 +15,7 @@ class AddMovie extends React.Component {
       ID: '',
     }
     componentWillMount() {
-      axios.get('http://localhost:3005/editdb/getMoviefromID', { params: { ID: queryString.parse(location.search).id } }).then((res) => {
+      axios.get(`${config.bserver}/editdb/getMoviefromID`, { params: { ID: queryString.parse(location.search).id } }).then((res) => {
         console.log(res.data);
         this.setState({
           name: res.data.NAME,
@@ -25,7 +26,7 @@ class AddMovie extends React.Component {
         });
       });
 
-      axios.get('http://localhost:3005/editdb/getLanguages').then((res) => {
+      axios.get(`${config.bserver}/editdb/getLanguages`).then((res) => {
         this.setState({
           languages: res.data,
         });
@@ -53,7 +54,7 @@ class AddMovie extends React.Component {
           DESCRIPTION: this.state.description,
           ID: this.state.ID,
         };
-        axios.post('http://localhost:3005/editdb/movies/edit', { movie }).then(() => {
+        axios.post(`${config.bserver}/editdb/movies/edit`, { movie }).then(() => {
           this.props.history.push('/editdb/viewMovies');
         });
       }

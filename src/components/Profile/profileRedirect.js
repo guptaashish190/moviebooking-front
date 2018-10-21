@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import queryString from 'query-string';
 import { withRouter } from 'react-router-dom';
+import config from '../../../config';
 
 class ProfileRedirect extends React.Component {
   componentWillMount() {
@@ -9,10 +10,10 @@ class ProfileRedirect extends React.Component {
     if (!token) {
       this.props.history.push('/login');
     }
-    const config = {
+    const headers = {
       headers: { authorization: `Bearer ${token}` },
     };
-    axios.get('http://localhost:3005/auth/verifyToken', config).then((response) => {
+    axios.get(`${config.bserver}/auth/verifyToken`, headers).then((response) => {
       if (response.data.user.newUser) {
         window.localStorage.setItem('newUserToken', token);
         this.props.history.push('/profile/new');

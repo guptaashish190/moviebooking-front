@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import shortID from 'shortid';
+import config from '../../../config';
 
 class Home extends React.Component {
   state = {
@@ -8,7 +9,7 @@ class Home extends React.Component {
   }
 
   componentWillMount() {
-    axios.get('http://localhost:3005/editdb/getMovies').then((res) => {
+    axios.get(`${config.bserver}/editdb/getMovies`).then((res) => {
       this.setState({
         movies: res.data,
       });

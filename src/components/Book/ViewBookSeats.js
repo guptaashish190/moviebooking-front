@@ -3,6 +3,7 @@ import axios from 'axios';
 import shortID from 'shortid';
 import queryString from 'query-string';
 import classnames from 'classnames';
+import config from '../../../config';
 
 class ViewBookSeats extends React.Component {
   state = {
@@ -22,7 +23,7 @@ class ViewBookSeats extends React.Component {
       time: Number(time),
     });
 
-    axios.get('http://localhost:3005/editdb/getTheatrefromID', { params: { ID: theatreid } }).then((res) => {
+    axios.get(`${config.bserver}/editdb/getTheatrefromID`, { params: { ID: theatreid } }).then((res) => {
       this.setState({
         theatre: res.data,
       });

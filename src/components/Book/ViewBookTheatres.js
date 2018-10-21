@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import shortID from 'shortid';
 import queryString from 'query-string';
+import config from '../../../config';
 
 class ViewBookTheatres extends React.Component {
   state = {
@@ -10,7 +11,7 @@ class ViewBookTheatres extends React.Component {
   }
 
   componentWillMount() {
-    axios.get('http://localhost:3005/editdb/getTheatres').then((res) => {
+    axios.get(`${config.bserver}/editdb/getTheatres`).then((res) => {
       this.setState({
         theatres: res.data,
       }, () => {

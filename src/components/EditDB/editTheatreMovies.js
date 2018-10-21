@@ -3,6 +3,7 @@ import shortID from 'shortid';
 import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import axios from 'axios';
+import config from '../../../config';
 
 class EditTheatreMovies extends React.Component {
     state = {
@@ -18,7 +19,7 @@ class EditTheatreMovies extends React.Component {
       this.setState({
         id,
       });
-      axios.get('http://localhost:3005/editdb/getTheatrefromID', { params: { ID: id } }).then((res) => {
+      axios.get(`${config.bserver}/editdb/getTheatrefromID`, { params: { ID: id } }).then((res) => {
         this.setState({
           name: res.data.NAME,
           location: res.data.LOCATION,
@@ -26,13 +27,13 @@ class EditTheatreMovies extends React.Component {
         });
       });
 
-      axios.get('http://localhost:3005/editdb/getMovies').then((res) => {
+      axios.get(`${config.bserver}/editdb/getMovies`).then((res) => {
         this.setState({
           allmovies: res.data,
         }, () => {
           for (let i = 0; i < this.state.movies.length; i += 1) {
             let movieData;
-            axios.get('http://localhost:3005/editdb/getMoviefromID', { params: { ID: this.state.movies[i].ID } }).then((res1) => {
+            axios.get(`${config.bserver}/editdb/getMoviefromID`, { params: { ID: this.state.movies[i].ID } }).then((res1) => {
               movieData = res1.data;
               this.setState({
                 moviesData: [...this.state.moviesData, movieData],
@@ -101,7 +102,7 @@ class EditTheatreMovies extends React.Component {
             ID: this.state.id,
             MOVIES: finalMovies,
           };
-          axios.post('http://localhost:3005/editdb/theatres/edit', { theatre }).then(() => {
+          axios.post(`${config.bserver}/editdb/theatres/edit`, { theatre }).then(() => {
             window.location.reload();
           });
         }
@@ -117,7 +118,7 @@ class EditTheatreMovies extends React.Component {
         MOVIES: finalMovies,
         ID: this.state.id,
       };
-      axios.post('http://localhost:3005/editdb/theatres/edit', { theatre }).then(() => {
+      axios.post(`${config.bserver}/editdb/theatres/edit`, { theatre }).then(() => {
         window.location.reload();
       });
     }

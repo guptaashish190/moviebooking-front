@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
+import config from '../../../config';
 
 class TicketSummary extends React.Component {
   state = {
@@ -13,17 +14,17 @@ class TicketSummary extends React.Component {
 
   componentWillMount() {
     const { ticketid } = queryString.parse(location.search);
-    axios.get('http://localhost:3005/editdb/getTicketByID', { params: { ticketid } }).then((res) => {
+    axios.get(`${config.bserver}/editdb/getTicketByID`, { params: { ticketid } }).then((res) => {
       this.setState({
         ticket: res.data,
       }, () => {
-        axios.get('http://localhost:3005/editdb/getTheatrefromID', { params: { ID: this.state.ticket.THEATREID } }).then((th) => {
+        axios.get(`${config.bserver}/editdb/getTheatrefromID`, { params: { ID: this.state.ticket.THEATREID } }).then((th) => {
           this.setState({
             theatre: th.data,
           });
         });
 
-        axios.get('http://localhost:3005/editdb/getMoviefromID', { params: { ID: this.state.ticket.MOVIEID } }).then((mov) => {
+        axios.get(`${config.bserver}/editdb/getMoviefromID`, { params: { ID: this.state.ticket.MOVIEID } }).then((mov) => {
           this.setState({
             movie: mov.data,
           });

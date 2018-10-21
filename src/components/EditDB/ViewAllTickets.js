@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import shortID from 'shortid';
+import config from '../../../config';
 // import { connect } from 'react-redux';
 
 class AllTickets extends React.Component {
@@ -10,7 +11,7 @@ class AllTickets extends React.Component {
 
 
   componentWillMount() {
-    axios.get('http://localhost:3005/editdb/getAllTickets').then((res) => {
+    axios.get(`${config.bserver}/editdb/getAllTickets`).then((res) => {
       this.setState({
         tickets: [...res.data],
       });

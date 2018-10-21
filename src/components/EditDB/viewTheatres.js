@@ -1,13 +1,14 @@
 import React from 'react';
 import shortID from 'shortid';
 import axios from 'axios';
+import config from '../../../config';
 
 class ViewTheatres extends React.Component {
     state = {
       theatres: [],
     }
     componentWillMount() {
-      axios.get('http://localhost:3005/editdb/getTheatres').then((res) => {
+      axios.get(`${config.bserver}/editdb/getTheatres`).then((res) => {
         this.setState({
           theatres: res.data,
         });
@@ -42,7 +43,7 @@ class ViewTheatres extends React.Component {
       </table>
     )
     remove = (id) => {
-      axios.post('http://localhost:3005/editdb/theatres/removebyid', { ID: id }).then(() => {
+      axios.post(`${config.bserver}/editdb/theatres/removebyid`, { ID: id }).then(() => {
         window.location.reload();
       });
     }

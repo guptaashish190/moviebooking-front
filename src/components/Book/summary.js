@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
+import config from '../../../config';
 
 class TicketSummary extends React.Component {
   state = {
@@ -19,7 +20,7 @@ class TicketSummary extends React.Component {
     const {
       movieid, theatreid, time, selectedseats,
     } = queryString.parse(location.search);
-    axios.get('http://localhost:3005/editdb/getTheatrefromID', { params: { ID: theatreid } }).then((res) => {
+    axios.get(`${config.bserver}/editdb/getTheatrefromID`, { params: { ID: theatreid } }).then((res) => {
       this.setState({
         theatreid,
         movieid,
@@ -30,7 +31,7 @@ class TicketSummary extends React.Component {
       });
     });
 
-    axios.get('http://localhost:3005/editdb/getMoviefromID', { params: { ID: movieid } }).then((res) => {
+    axios.get(`${config.bserver}/editdb/getMoviefromID`, { params: { ID: movieid } }).then((res) => {
       this.setState({
         movie: res.data,
       });
@@ -65,7 +66,7 @@ class TicketSummary extends React.Component {
       DATE: this.state.todaysDate,
     };
 
-    axios.post('http://localhost:3005/editdb/booktickets', { TICKETINFO: ticketInfo }).then((res) => {
+    axios.post(`${config.bserver}/editdb/booktickets`, { TICKETINFO: ticketInfo }).then((res) => {
       this.props.history.push(`/bookticket/booking?ticketid=${res.data._id}`);
     });
   }

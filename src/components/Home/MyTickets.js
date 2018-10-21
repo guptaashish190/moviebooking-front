@@ -1,8 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { withRouter } from 'react-router-dom';
 import shortID from 'shortid';
-// import { connect } from 'react-redux';
+import config from '../../../config';
 
 class MyTicket extends React.Component {
   state = {
@@ -14,7 +13,7 @@ class MyTicket extends React.Component {
   componentWillMount() {
     if (Object.keys(this.props.user).length !== 0) {
       console.log(this.props.user);
-      axios.get('http://localhost:3005/editdb/getUserTickets', { params: { GOOGLEID: this.props.user.GOOGLEID } }).then((res) => {
+      axios.get(`${config.bserver}/editdb/getUserTickets`, { params: { GOOGLEID: this.props.user.GOOGLEID } }).then((res) => {
         this.setState({
           tickets: [...res.data],
         });

@@ -1,10 +1,10 @@
 import React from 'react';
-import shortID from 'shortid';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import queryString from 'query-string';
 import theatreActions from '../../actions/theatreActions';
+import config from '../../../config';
 
 class AddTheatre extends React.Component {
     state = {
@@ -15,7 +15,7 @@ class AddTheatre extends React.Component {
 
     componentWillMount() {
       const { id } = queryString.parse(location.search);
-      axios.get('http://localhost:3005/editdb/getTheatrefromID', { params: { ID: id } }).then((res) => {
+      axios.get(`${config.bserver}/editdb/getTheatrefromID`, { params: { ID: id } }).then((res) => {
         this.setState({
           name: res.data.NAME,
           location: res.data.LOCATION,
@@ -44,7 +44,7 @@ class AddTheatre extends React.Component {
           ID: this.state.id,
           MOVIES: [],
         };
-        axios.post('http://localhost:3005/editdb/theatres/edit', { theatre }).then(() => {
+        axios.post(`${config.bserver}/editdb/theatres/edit`, { theatre }).then(() => {
           this.props.history.push('/editdb/viewTheatres');
         });
       }

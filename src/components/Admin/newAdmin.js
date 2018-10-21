@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import shortID from 'shortid';
+import config from '../../../config';
 
 class NewUser extends React.Component {
   state = {
@@ -22,7 +23,7 @@ class NewUser extends React.Component {
           errors: this.state.errors.filter(elem => elem !== 'Username should be more than 7 letters'),
         });
 
-        axios.post('http://localhost:3005/admin/new/validateAdminName', { ADMINNAME: e.target.value }).then((response) => {
+        axios.post(`${config.bserver}/admin/new/validateAdminName`, { ADMINNAME: e.target.value }).then((response) => {
           if (!response.data.valid && this.state.errors.indexOf('Username should be more than 7 letters') === -1) {
             this.setState({
               errors: [...this.state.errors, 'Admin username already exists'],
@@ -80,7 +81,7 @@ class NewUser extends React.Component {
       this.setState({
         errors: this.state.errors.filter(elem => elem !== 'Please fill the form correctly'),
       });
-      axios.post('http://localhost:3005/admin/new/addAdmin', { adminInfo }).then((res) => {
+      axios.post(`${config.bserver}/admin/new/addAdmin`, { adminInfo }).then((res) => {
         if (res.data.status === 'ok') {
           window.localStorage.setItem('adminToken', res.data.token);
           this.props.history.push('/admin');
