@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import userLoginActions from '../../actions/userLoginActions';
+import config from '../../../config';
 
 // ROUTE PROTECT HOC
 
@@ -20,10 +21,10 @@ const protectedRouteHOC = (WrappedComponent) => {
       }
       const token = window.localStorage.getItem('token');
       if (token) {
-        const config = {
+        const headers = {
           headers: { authorization: `Bearer ${token}` },
         };
-        axios.get(`${config.bserver}/auth/verifyToken`, config).then((response) => {
+        axios.get(`${config.bserver}/auth/verifyToken`, headers).then((response) => {
           if (Object.keys(this.props.user).length === 0) {
             this.props.setUser(response.data.user);
           }

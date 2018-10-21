@@ -11,7 +11,7 @@ module.exports = {
     path: `${__dirname}/public/`,
     filename: 'bundle.js',
   },
-  watch: true,
+  watch: false,
 
   module: {
     rules: [
@@ -25,7 +25,8 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          process.env.NODE_ENV !== 'production' ? 'style-loader' : MiniCssExtractPlugin.loader,
+          // process.env.NODE_ENV !== 'production' ? 'style-loader' : MiniCssExtractPlugin.loader,
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader',
         ],
